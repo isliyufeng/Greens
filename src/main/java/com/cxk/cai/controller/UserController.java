@@ -2,6 +2,7 @@ package com.cxk.cai.controller;
 
 import com.cxk.cai.dto.UserDto;
 import com.cxk.cai.entity.ResultVo;
+import com.cxk.cai.entity.User;
 import com.cxk.cai.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +28,7 @@ public class UserController {
 
     @ApiOperation(value = "注册", notes = "注册接口", httpMethod = "POST")
     @RequestMapping("/register.do")
-    public ResultVo register(UserDto user) {
+    public ResultVo register(User user) {
         return userService.register(user);
     }
 

@@ -9,7 +9,19 @@ import com.cxk.cai.entity.User;
  * @author 喜闻乐见i
  */
 public interface UserService extends IService<User> {
+    /**
+     * 登录
+     *
+     * @param user
+     * @return
+     */
     ResultVo login(UserDto user);
 
-    ResultVo register(UserDto user);
+    /**
+     * 注册
+     *
+     * @param user
+     * @return
+     */
+    ResultVo register(User user);
 }
