@@ -32,7 +32,7 @@ public class UserController {
         return userService.register(user);
     }
 
-    @ApiOperation(value = "个人信息", notes = "个人信息接口", httpMethod = "POST")
+    @ApiOperation(value = "查询个人信息", notes = "查询个人信息接口", httpMethod = "POST")
     @RequestMapping("/userMassage.do")
     public ResultVo UserMassage() {
         return userService.selectUser();

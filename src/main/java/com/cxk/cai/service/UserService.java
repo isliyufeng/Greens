@@ -41,5 +41,10 @@ public interface UserService extends IService<User> {
      */
     ResultVo updateUserInfo(User user);
 
+    /**
+     * 查询用户信息
+     *
+     * @return
+     */
     ResultVo selectUser();
 }
