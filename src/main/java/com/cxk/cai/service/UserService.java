@@ -24,6 +24,4 @@ public interface UserService extends IService<User> {
      * @return
      */
     ResultVo register(User user);
-
-    ResultVo selectUser();
 }

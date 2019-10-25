@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
-
 /**
  * @author 喜闻乐见i
  */
 @RestController
 @RequestMapping("/user")
-@Api(value = "用户模块啊", tags = "用户模块接口")
+@Api(value = "登录模块", tags = "登录模块接口")
 public class UserController {
     @Autowired
     UserService userService;
@@ -32,12 +30,6 @@ public class UserController {
     @RequestMapping("/register.do")
     public ResultVo register(User user) {
         return userService.register(user);
-    }
-
-    @ApiOperation(value = "个人信息", notes = "个人信息接口", httpMethod = "POST")
-    @RequestMapping("/userMassage.do")
-    public ResultVo UserMassage() {
-        return userService.selectUser();
     }
 
 }
