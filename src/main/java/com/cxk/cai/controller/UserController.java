@@ -26,12 +26,17 @@ public class UserController {
         return userService.login(user);
     }
 
-    @ApiOperation(value = "注册用户", notes = "注册用户接口", httpMethod = "POST")
+    @ApiOperation(value = "注册", notes = "注册接口", httpMethod = "POST")
     @RequestMapping("/register.do")
     public ResultVo register(User user) {
         return userService.register(user);
     }
 
+    @ApiOperation(value = "个人信息", notes = "个人信息接口", httpMethod = "POST")
+    @RequestMapping("/userMassage.do")
+    public ResultVo UserMassage() {
+        return userService.selectUser();
+    }
     @ApiOperation(value = "校验手机号", notes = "校验手机号是否已经使用的接口", httpMethod = "POST")
     @RequestMapping("/verifyPhone.do")
     public ResultVo VerifyPhone(String phone) {

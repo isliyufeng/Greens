@@ -40,4 +40,6 @@ public interface UserService extends IService<User> {
      * @return
      */
     ResultVo updateUserInfo(User user);
+
+    ResultVo selectUser();
 }
