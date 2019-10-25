@@ -24,4 +24,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     ResultVo register(User user);
+
+    /**
+     * 校验手机号是否已经被注册
+     *
+     * @param phone
+     * @return
+     */
+    ResultVo VerifyPhone(String phone);
 }

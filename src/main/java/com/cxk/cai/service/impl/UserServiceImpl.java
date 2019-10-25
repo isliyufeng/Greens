@@ -20,7 +20,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public ResultVo login(UserDto user) {
         User user1 = getBaseMapper().selectOne(new QueryWrapper<User>().eq("phone", user.getPhone()));
-        if(user1!=null) {
+        if (user1 != null) {
             if (user1.getPhone().equals(user.getPhone()) && user1.getPassword().equals(user.getPassword())) {
                 //模拟成功
                 //1、创建主题对象
@@ -33,7 +33,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             } else {
                 return ResultVo.setERROR();
             }
-        }else {
+        } else {
             return ResultVo.setERROR();
         }
     }
@@ -46,6 +46,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 return ResultVo.setSUCCESS("OK");
             } else {
                 return ResultVo.setERROR();
+            }
+        } else {
+            return ResultVo.setERROR();
+        }
+    }
+
+    @Override
+    public ResultVo VerifyPhone(String phone) {
+        if (!"".equals(phone)) {
+            Integer result = getBaseMapper().selectCount(new QueryWrapper<User>().eq("phone", phone));
+            if (result > 0) {
+                return ResultVo.setERROR();
+            } else {
+                return ResultVo.setSUCCESS("OK");
             }
         } else {
             return ResultVo.setERROR();

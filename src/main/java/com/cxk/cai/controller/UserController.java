@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
-@Api(value = "登录模块", tags = "登录模块接口")
+@Api(value = "用户模块", tags = "用户模块接口")
 public class UserController {
     @Autowired
     UserService userService;
@@ -30,6 +30,12 @@ public class UserController {
     @RequestMapping("/register.do")
     public ResultVo register(User user) {
         return userService.register(user);
+    }
+
+    @ApiOperation(value = "校验手机号", notes = "校验手机号是否已经使用的接口", httpMethod = "POST")
+    @RequestMapping("/verifyPhone.do")
+    public ResultVo VerifyPhone(String phone) {
+        return userService.VerifyPhone(phone);
     }
 
 }
