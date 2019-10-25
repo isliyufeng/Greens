@@ -25,4 +25,10 @@ public class UserController {
         return userService.login(user);
     }
 
+    @ApiOperation(value = "注册", notes = "注册接口", httpMethod = "POST")
+    @RequestMapping("/register.do")
+    public ResultVo register(UserDto user) {
+        return userService.register(user);
+    }
+
 }

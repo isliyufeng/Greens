@@ -10,4 +10,6 @@ import com.cxk.cai.entity.User;
  */
 public interface UserService extends IService<User> {
     ResultVo login(UserDto user);
+
+    ResultVo register(UserDto user);
 }
