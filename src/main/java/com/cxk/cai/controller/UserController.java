@@ -17,7 +17,7 @@ import java.awt.*;
  */
 @RestController
 @RequestMapping("/user")
-@Api(value = "用户模块", tags = "用户模块接口")
+@Api(value = "用户模块啊", tags = "用户模块接口")
 public class UserController {
     @Autowired
     UserService userService;
