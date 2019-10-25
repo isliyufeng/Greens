@@ -1,16 +1,16 @@
 package com.cxk.cai.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cxk.cai.dto.UserDto;
-import com.cxk.cai.entity.ResultVo;
-import com.cxk.cai.entity.User;
-import com.cxk.cai.mapper.UserMapper;
-import com.cxk.cai.service.UserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Service;
+        import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+        import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+        import com.cxk.cai.dto.UserDto;
+        import com.cxk.cai.entity.ResultVo;
+        import com.cxk.cai.entity.User;
+        import com.cxk.cai.mapper.UserMapper;
+        import com.cxk.cai.service.UserService;
+        import org.apache.shiro.SecurityUtils;
+        import org.apache.shiro.authc.UsernamePasswordToken;
+        import org.apache.shiro.subject.Subject;
+        import org.springframework.stereotype.Service;
 
 /**
  * @author 喜闻乐见i
@@ -50,5 +50,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         } else {
             return ResultVo.setERROR();
         }
+    }
+
+    @Override
+    public ResultVo selectUser() {
+        //创建主题对象
+        Subject subject = SecurityUtils.getSubject();
+
+        Object principal = subject.getPrincipal();
+        System.out.println(principal);
+        User user = getBaseMapper().selectOne(new QueryWrapper<User>().eq("phone", principal));
+        System.out.println(user);
+        return ResultVo.setResult(true, user);
     }
 }
