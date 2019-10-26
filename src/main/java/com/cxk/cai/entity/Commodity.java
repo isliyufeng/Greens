@@ -18,8 +18,6 @@ public class Commodity {
 
     private Float oldprice;
 
-    private Float newprice;
-
     public String getId() {
         return id;
     }
@@ -50,13 +48,5 @@ public class Commodity {
 
     public void setOldprice(Float oldprice) {
         this.oldprice = oldprice;
-    }
-
-    public Float getNewprice() {
-        return newprice;
-    }
-
-    public void setNewprice(Float newprice) {
-        this.newprice = newprice;
     }
 }

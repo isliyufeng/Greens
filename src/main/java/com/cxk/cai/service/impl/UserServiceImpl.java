@@ -56,7 +56,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResultVo verifyPhone(String phone) {
-        if (!"".equals(phone)) {
+        if (!"".equals(phone) && phone != null) {
             Integer result = getBaseMapper().selectCount(new QueryWrapper<User>().eq("phone", phone));
             if (result > 0) {
                 return ResultVo.setERROR();
