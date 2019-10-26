@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/type")
-@Api(value = "分类", tags = "一级分类、二级分类的接口")
+@Api(value = "菜单", tags = "一级菜单、二级菜单的接口")
 public class TypeController {
     @Autowired
     OneTypeService oneTypeService;
@@ -28,11 +28,10 @@ public class TypeController {
 
     List<Types> list = new ArrayList<>();
 
-    @ApiOperation(value = "获取分类", notes = "获取分类接口", httpMethod = "POST")
+    @ApiOperation(value = "获取菜单", notes = "获取菜单接口", httpMethod = "POST")
     @RequestMapping("/getType.do")
     public ResultVo getType() {
         List<OneType> oneTypes = oneTypeService.getOneType();
-        System.out.println("11111" + oneTypes.toString());
         if (!oneTypes.equals("") && oneTypes != null) {
             for (OneType oneType : oneTypes) {
                 Types type = new Types();
