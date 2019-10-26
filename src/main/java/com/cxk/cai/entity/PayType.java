@@ -1,6 +1,12 @@
 package com.cxk.cai.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+@TableName("mode_of_payment")
 public class PayType {
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String pay;
