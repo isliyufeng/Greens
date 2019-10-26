@@ -23,6 +23,26 @@ public class Order {
 
     private Integer paytype;
 
+    private String pay;
+
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
+    }
+
     public Integer getId() {
         return id;
     }

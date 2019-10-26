@@ -3,6 +3,7 @@ package com.cxk.cai.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cxk.cai.dto.UserDto;
+import com.cxk.cai.entity.Order;
 import com.cxk.cai.entity.ResultVo;
 import com.cxk.cai.entity.User;
 import com.cxk.cai.mapper.UserMapper;
@@ -10,13 +11,21 @@ import com.cxk.cai.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.PreparedStatement;
+import java.util.List;
 
 /**
  * @author 喜闻乐见i
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Autowired
+    UserMapper userMapper;
+
     @Override
     public ResultVo login(UserDto user) {
         User user1 = getBaseMapper().selectOne(new QueryWrapper<User>().eq("phone", user.getPhone()));
@@ -101,4 +110,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return ResultVo.setERROR();
         }
     }
+
+    @Override
+    public ResultVo userOrder(Integer uid) {
+        List<Order> order = userMapper.userOrder(uid);
+        return ResultVo.setResult(true, order);
+    }
+
 }

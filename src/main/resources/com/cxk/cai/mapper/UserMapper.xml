@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--写增删改查的SQL语句-->
+<!-- namespace：命名空间，用于隔离sql -->
+<mapper namespace="com.cxk.cai.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.cxk.cai.entity.Order">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="uid" jdbcType="INTEGER" property="uid" />
+        <result column="orderid" jdbcType="VARCHAR" property="orderid" />
+        <result column="totalmoney" jdbcType="REAL" property="totalmoney" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="stateid" jdbcType="INTEGER" property="stateid" />
+        <result column="paytype" jdbcType="INTEGER" property="paytype" />
+    </resultMap>
+    <select id="userOrder" parameterType="integer" resultMap="BaseResultMap">
+        select o.*,mop.pay,cos.state from cai.order o left join cai.mode_of_payment mop on o.paytype = mop.id
+        left join cai.order_state cos on o.stateid = cos.id
+        where uid = #{uid}
+    </select>
+</mapper>

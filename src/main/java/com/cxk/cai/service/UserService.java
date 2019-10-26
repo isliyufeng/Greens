@@ -47,4 +47,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     ResultVo selectUser();
+
+    /**
+     * 查询用户订单信息
+     *
+     * @param uid 用户ID
+     * @return
+     */
+    ResultVo userOrder(Integer uid);
 }

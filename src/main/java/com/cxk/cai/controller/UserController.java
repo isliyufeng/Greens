@@ -1,6 +1,7 @@
 package com.cxk.cai.controller;
 
 import com.cxk.cai.dto.UserDto;
+import com.cxk.cai.entity.Order;
 import com.cxk.cai.entity.ResultVo;
 import com.cxk.cai.entity.User;
 import com.cxk.cai.service.UserService;
@@ -47,5 +48,11 @@ public class UserController {
     @RequestMapping("/updateUserInfo.do")
     public ResultVo updateUserInfo(User user) {
         return userService.updateUserInfo(user);
+    }
+
+    @ApiOperation(value = "查询用户订单信息", notes = "查询用户订单信息", httpMethod = "POST")
+    @RequestMapping("/userOrder.do")
+    public ResultVo userOrder(Integer uid) {
+        return userService.userOrder(uid);
     }
 }
