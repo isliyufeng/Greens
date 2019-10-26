@@ -12,8 +12,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 
-import java.sql.PreparedStatement;
-
 /**
  * @author 喜闻乐见i
  */
