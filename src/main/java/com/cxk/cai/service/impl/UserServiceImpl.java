@@ -93,8 +93,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public ResultVo selectUser() {
         //创建主题对象
         Subject subject = SecurityUtils.getSubject();
+        //获取用户登录账号
         Object principal = subject.getPrincipal();
-        User user = getBaseMapper().selectOne(new QueryWrapper<User>().eq("phone", principal));
-        return ResultVo.setResult(true, user);
+        //根据用户账号查询用户信息
+        if (principal != null && !"".equals(principal)) {
+            User user = getBaseMapper().selectOne(new QueryWrapper<User>().eq("phone", principal));
+            return ResultVo.setResult(true, user);
+        } else {
+            return ResultVo.setERROR();
+        }
     }
 }
