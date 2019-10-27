@@ -31,7 +31,6 @@ public class CommodityController {
     @ApiOperation(value = "获取商品", notes = "根据商品分类id获取商品接口", httpMethod = "POST")
     public ResultVo getCommodity(Integer id, Integer num) {
         List<Commodity> list = commodityService.getCommodity(id, num);
-        System.out.println(list.toString());
         return ResultVo.setSUCCESS(list);
     }
 }
