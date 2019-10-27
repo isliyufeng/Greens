@@ -39,4 +39,6 @@ public class CommodityController {
     public ResultVo getCommodityInfoById(Integer id) {
         return ResultVo.setSUCCESS(commodityService.getCommodityInfoById(id));
     }
+
+
 }
