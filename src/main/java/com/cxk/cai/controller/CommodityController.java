@@ -26,4 +26,12 @@ public class CommodityController {
         List<Commodity> list = commodityService.getNewCommodity(num);
         return ResultVo.setSUCCESS(list);
     }
+
+    @RequestMapping("/getCommodityByTypeId")
+    @ApiOperation(value = "获取商品", notes = "根据商品分类id获取商品接口", httpMethod = "POST")
+    public ResultVo getCommodity(Integer id, Integer num) {
+        List<Commodity> list = commodityService.getCommodity(id, num);
+        System.out.println(list.toString());
+        return ResultVo.setSUCCESS(list);
+    }
 }

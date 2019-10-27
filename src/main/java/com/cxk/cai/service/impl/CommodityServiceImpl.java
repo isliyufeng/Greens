@@ -21,4 +21,9 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public List<Commodity> getNewCommodity(Integer num) {
         return mapper.getNewCommodity(num);
     }
+
+    @Override
+    public List<Commodity> getCommodity(Integer id, Integer num) {
+        return mapper.getCommodity(id, num);
+    }
 }
