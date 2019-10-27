@@ -11,9 +11,7 @@ public interface TwoTypeService extends IService<TwoType> {
     /**
      * 获取二级菜单
      *
-     * @param id
      * @return
      */
-    List<TwoType> getTwoTypeByOneId(Integer id);
-
+    List<TwoType> getOneType();
 }

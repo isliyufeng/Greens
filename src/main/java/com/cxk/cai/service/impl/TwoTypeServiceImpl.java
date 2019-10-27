@@ -14,8 +14,7 @@ import java.util.List;
 @Service
 public class TwoTypeServiceImpl extends ServiceImpl<TwoTypeMapper, TwoType> implements TwoTypeService {
     @Override
-    public List<TwoType> getTwoTypeByOneId(Integer id) {
-        List<TwoType> twoTypes = getBaseMapper().selectList(new QueryWrapper<TwoType>().eq("oneid", id));
-        return twoTypes;
+    public List<TwoType> getOneType() {
+        return getBaseMapper().selectList(new QueryWrapper<>());
     }
 }

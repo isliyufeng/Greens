@@ -2,6 +2,7 @@ package com.cxk.cai.controller;
 
 import com.cxk.cai.entity.OneType;
 import com.cxk.cai.entity.ResultVo;
+import com.cxk.cai.entity.TwoType;
 import com.cxk.cai.entity.Types;
 import com.cxk.cai.service.OneTypeService;
 import com.cxk.cai.service.TwoTypeService;
@@ -26,17 +27,23 @@ public class TypeController {
     @Autowired
     TwoTypeService twoTypeService;
 
-    List<Types> list = new ArrayList<>();
-
     @ApiOperation(value = "获取菜单", notes = "获取菜单接口", httpMethod = "POST")
     @RequestMapping("/getType.do")
     public ResultVo getType() {
         List<OneType> oneTypes = oneTypeService.getOneType();
-        if (!oneTypes.equals("") && oneTypes != null) {
+        if (!"".equals(oneTypes) && oneTypes != null) {
+            List<Types> list = new ArrayList<>();
+            List<TwoType> twoTypes = twoTypeService.getOneType();
             for (OneType oneType : oneTypes) {
+                List<TwoType> twoList = new ArrayList<>();
+                for (TwoType twoType : twoTypes) {
+                    if (oneType.getId().equals(twoType.getOneid()) ) {
+                        twoList.add(twoType);
+                    }
+                }
                 Types type = new Types();
                 type.setOneType(oneType);
-                type.setTwoType(twoTypeService.getTwoTypeByOneId(oneType.getId()));
+                type.setTwoType(twoList);
                 list.add(type);
             }
             return ResultVo.setSUCCESS(list);
