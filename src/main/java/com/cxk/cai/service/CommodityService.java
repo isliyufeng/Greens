@@ -25,4 +25,11 @@ public interface CommodityService extends IService<Commodity> {
      * @return
      */
     List<Commodity> getCommodity(Integer id, Integer num);
+
+    /**
+     * 根据商品id获取商品信息
+     * @param id 商品id
+     * @return
+     */
+    Commodity getCommodityInfoById(Integer id);
 }
