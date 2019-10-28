@@ -25,7 +25,13 @@ public class CommentController {
 
     /**
      * 用户评论商品 commenttype传参 1, 并且传一个 cid， content， createtime
-     * 商户评论用户，或者用户回复商户， 需要 commenttype 传参 0， 并且传一个 oneid， twoid， content, createtime
+     * 商户评论用户，或者用户回复商户， 需要 commenttype 传参 0， 并且传一个 oneid， twoid， content, createtime, comid
+     * comid指的是用户评论商品的那条数据的id
+     * createtime，创建这条评论的时间
+     * content，评论的内容
+     * oneid, twoid, 指的是谁给谁评论，如果用户给商品评论则只传一个oneid就成，这个oneid在此处是只用户的id
+     * cid指得是商品的id
+     * commenttype为1，指的是用户评论商品，为0，指的是用户和商家的互相评论
      *
      * @param comment
      * @return
