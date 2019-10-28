@@ -28,4 +28,12 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      */
     @Select("select * from commodity where type = #{id} limit #{num}")
     List<Commodity> getCommodity(Integer id, Integer num);
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+    @Select("select * from cai.commodity where name like concat('%',#{name},'%')")
+    List<Commodity> selectCommodityByName(String name);
 }

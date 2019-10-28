@@ -40,5 +40,10 @@ public class CommodityController {
         return ResultVo.setSUCCESS(commodityService.getCommodityInfoById(id));
     }
 
-
+    @RequestMapping("/selectCommodityByName.do")
+    @ApiOperation(value = "查询商品详细信息", notes = "根据商品关键字获取商品接口", httpMethod = "POST")
+    public ResultVo selectCommodityByName(String name) {
+        List<Commodity> commodities = commodityService.selectCommodityByName(name);
+        return ResultVo.setSUCCESS(commodities);
+    }
 }

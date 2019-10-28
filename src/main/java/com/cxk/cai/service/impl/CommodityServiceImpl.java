@@ -1,7 +1,9 @@
 package com.cxk.cai.service.impl;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cxk.cai.entity.Commodity;
+import com.cxk.cai.entity.ResultVo;
 import com.cxk.cai.mapper.CommodityMapper;
 import com.cxk.cai.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +32,11 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Override
     public Commodity getCommodityInfoById(Integer id) {
         return getBaseMapper().selectById(id);
+    }
+
+    @Override
+    public List<Commodity> selectCommodityByName(String name) {
+        return mapper.selectCommodityByName(name);
+
     }
 }
