@@ -20,21 +20,21 @@ public class CommodityController {
     @Autowired
     CommodityService commodityService;
 
-    @RequestMapping("/getNewCommodity")
+    @RequestMapping("/getNewCommodity.do")
     @ApiOperation(value = "新品上市", notes = "新品上市接口", httpMethod = "POST")
     public ResultVo getNewCommodity(Integer num) {
         List<Commodity> list = commodityService.getNewCommodity(num);
         return ResultVo.setSUCCESS(list);
     }
 
-    @RequestMapping("/getCommodityByTypeId")
+    @RequestMapping("/getCommodityByTypeId.do")
     @ApiOperation(value = "获取商品", notes = "根据商品分类id获取商品接口", httpMethod = "POST")
     public ResultVo getCommodity(Integer id, Integer num) {
         List<Commodity> list = commodityService.getCommodity(id, num);
         return ResultVo.setSUCCESS(list);
     }
 
-    @RequestMapping("/getCommodityInfoById")
+    @RequestMapping("/getCommodityInfoById.do")
     @ApiOperation(value = "获取商品详细信息", notes = "根据商品id获取商品详细信息接口", httpMethod = "POST")
     public ResultVo getCommodityInfoById(Integer id) {
         return ResultVo.setSUCCESS(commodityService.getCommodityInfoById(id));

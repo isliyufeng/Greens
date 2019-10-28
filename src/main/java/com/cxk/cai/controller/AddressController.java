@@ -16,13 +16,13 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
-    @RequestMapping("/allAddress")
+    @RequestMapping("/allAddress.do")
     @ApiOperation(value = "查询用户收货地址", notes = "查询用户收货地址接口", httpMethod = "POST")
     public ResultVo allAddress(Integer uid) {
          return addressService.allAddress(uid);
     }
 
-    @RequestMapping("/insertAddress")
+    @RequestMapping("/insertAddress.do")
     @ApiOperation(value = "添加用户收货地址", notes = "添加用户收货地址接口", httpMethod = "POST")
     public ResultVo insertAddress(ShAddress shAddress) {
         return addressService.insertAddress(shAddress);

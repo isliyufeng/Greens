@@ -19,7 +19,7 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @RequestMapping("/add")
+    @RequestMapping("/add.do")
     @ApiOperation(value = "发表评论", notes = "可以进行商品评论，也可以用于户店家回复用户的评论", httpMethod = "POST")
     public ResultVo comment(Comment comment) {
         if (comment.getOneid() != null && !"".equals(comment.getOneid()) && comment.getTwoid() != null
@@ -30,7 +30,7 @@ public class CommentController {
         return ResultVo.setERROR();
     }
 
-    @RequestMapping("/del")
+    @RequestMapping("/del.do")
     @ApiOperation(value = "删除评论", notes = "可以删除自己的评论，也可以用于户店家删除自己的评论", httpMethod = "GET")
     public ResultVo comment(Integer id) {
         if (!"".equals(id) && id != null) {
