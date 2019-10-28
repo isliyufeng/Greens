@@ -27,4 +27,11 @@ public class AddressServiceImpl extends ServiceImpl<CommodityMapper, Commodity> 
             return ResultVo.setERROR();
         }
     }
+
+    @Override
+    public ResultVo insertAddress(ShAddress shAddress) {
+        //添加用户的收货地址，放入list集合中
+        List<ShAddress> shAddressList = addressMapper.insertAddress(shAddress);
+        return ResultVo.setSUCCESS(shAddressList);
+    }
 }

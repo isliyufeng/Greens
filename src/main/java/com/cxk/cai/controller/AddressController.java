@@ -1,6 +1,7 @@
 package com.cxk.cai.controller;
 
 import com.cxk.cai.entity.ResultVo;
+import com.cxk.cai.entity.ShAddress;
 import com.cxk.cai.service.AddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,8 +17,14 @@ public class AddressController {
     AddressService addressService;
 
     @RequestMapping("/allAddress")
-    @ApiOperation(value = "用户地址", notes = "用户地址接口", httpMethod = "POST")
+    @ApiOperation(value = "查询用户收货地址", notes = "查询用户收货地址接口", httpMethod = "POST")
     public ResultVo allAddress(Integer uid) {
          return addressService.allAddress(uid);
+    }
+
+    @RequestMapping("/insertAddress")
+    @ApiOperation(value = "添加用户收货地址", notes = "添加用户收货地址接口", httpMethod = "POST")
+    public ResultVo insertAddress(ShAddress shAddress) {
+        return addressService.insertAddress(shAddress);
     }
 }
