@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
-@Api(value = "登录模块", tags = "登录模块接口")
+@Api(value = "用户模块", tags = "用户模块接口")
 public class UserController {
     @Autowired
     UserService userService;
@@ -53,5 +53,21 @@ public class UserController {
     @RequestMapping("/userOrder.do")
     public ResultVo userOrder(Integer uid) {
         return userService.userOrder(uid);
+    }
+
+    @ApiOperation(value = "查看密码是否正确", notes = "查看密码是否正确接口", httpMethod = "POST")
+    @RequestMapping("/IsPasswordTrue.do")
+    public String IsPasswordTrue(String phone, String password) {
+        if (userService.IsPasswordTrue(phone, password)) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
+
+    @ApiOperation(value = "修改密码", notes = "修改密码接口", httpMethod = "POST")
+    @RequestMapping("/updateUserPassword.do")
+    public ResultVo updateUserPassword(User user) {
+        return userService.updateUserInfo(user);
     }
 }

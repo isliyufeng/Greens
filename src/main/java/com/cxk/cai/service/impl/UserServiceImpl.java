@@ -121,4 +121,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
+
+    @Override
+    public boolean IsPasswordTrue(String phone, String password) {
+        User user = new User();
+        user.setPhone(phone);
+        user.setPassword(password);
+        int isPasswordTrue = userMapper.IsPasswordTrue(user);
+        return isPasswordTrue > 0 ? true : false;
+    }
+
 }

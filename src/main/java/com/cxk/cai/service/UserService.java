@@ -55,4 +55,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     ResultVo userOrder(Integer uid);
+
+    /**
+     * 查看密码是否正确
+     * @param phone
+     * @param password
+     * @return
+     */
+    boolean IsPasswordTrue(String phone, String password);
 }

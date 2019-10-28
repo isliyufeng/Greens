@@ -3,6 +3,7 @@ package com.cxk.cai.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cxk.cai.entity.Commodity;
 import com.cxk.cai.entity.ShAddress;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -30,6 +31,6 @@ public interface AddressMapper extends BaseMapper<Commodity> {
             @Result(id = true, column = "id", property = "id"),
             @Result(property = "detailAddress", column = "detail_address")
     })
-    @Select("insert into cai.shaddress(uid,name,phone,detail_address) values(#{uid},#{name},#{phone},#{detailAddress});")
+    @Insert("insert into cai.shaddress(uid,name,phone,detail_address) values(#{uid},#{name},#{phone},#{detailAddress});")
     List<ShAddress> insertAddress(ShAddress shAddress);
 }
