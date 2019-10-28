@@ -2,6 +2,9 @@ package com.cxk.cai.entity;
 
 import java.util.List;
 
+/**
+ * @author 喜闻乐见i
+ */
 public class Types {
     private OneType oneType;
     private List<TwoType> twoType;
