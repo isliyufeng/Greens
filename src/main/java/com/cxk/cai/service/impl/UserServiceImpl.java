@@ -14,7 +14,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 /**
@@ -113,8 +112,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResultVo userOrder(Integer uid) {
-        List<Order> order = userMapper.userOrder(uid);
-        return ResultVo.setResult(true, order);
+        //查询用户订单
+        if (uid != null && !"".equals(uid)) {
+            List<Order> order = userMapper.userOrder(uid);
+            return ResultVo.setResult(true, order);
+        } else {
+            return ResultVo.setERROR();
+        }
     }
 
 }
