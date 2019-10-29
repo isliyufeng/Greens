@@ -10,8 +10,8 @@ import java.util.List;
 public class Collect {
     @TableId(type = IdType.AUTO)
     private int id;
-    private int uid;
-    private int cid;
+    private Integer uid;
+    private Integer cid;
     private String name;
     private String oldprice;
 

@@ -1,9 +1,10 @@
-package com.cxk.cai.service;
+package com.cxk.cai.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cxk.cai.entity.Cat;
 import com.cxk.cai.mapper.CatMapper;
+import com.cxk.cai.service.CatService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

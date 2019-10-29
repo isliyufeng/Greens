@@ -24,7 +24,13 @@ public class CollectController {
 
     @RequestMapping("/userCollect.do")
     @ApiOperation(value = "用户收藏商品", notes = "用户收藏商品接口", httpMethod = "POST")
-    public ResultVo userCollect(int uid, int cid) {
+    public ResultVo userCollect(Integer uid, Integer cid) {
         return collectService.userCollect(uid, cid);
+    }
+
+    @RequestMapping("/delUserCollect.do")
+    @ApiOperation(value = "取消用户收藏", notes = "取消用户收藏商品接口", httpMethod = "POST")
+    public ResultVo delUserCollect(Integer uid, Integer cid) {
+        return collectService.delUserCollect(uid, cid);
     }
 }
