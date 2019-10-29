@@ -31,6 +31,6 @@ public interface AddressMapper extends BaseMapper<Commodity> {
             @Result(id = true, column = "id", property = "id"),
             @Result(property = "detailAddress", column = "detail_address")
     })
-    @Insert("insert into cai.shaddress(uid,name,phone,detail_address) values(#{uid},#{name},#{phone},#{detailAddress});")
+    @Select("insert into cai.shaddress(uid,name,phone,detail_address) values(#{uid},#{name},#{phone},#{detailAddress});")
     List<ShAddress> insertAddress(ShAddress shAddress);
 }

@@ -30,7 +30,7 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
     List<Commodity> getCommodity(Integer id, Integer num);
 
     /**
-     *
+     * 查询商品
      * @param name
      * @return
      */
