@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/type")
-@Api(value = "菜单", tags = "一级菜单、二级菜单的接口")
+@Api(value = "菜单模块", tags = "一级菜单、二级菜单的接口")
 public class TypeController {
     @Autowired
     OneTypeService oneTypeService;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxk.cai.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.cxk.cai.entity.Order">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="orderid" jdbcType="VARCHAR" property="orderid" />
+    <result column="totalmoney" jdbcType="REAL" property="totalmoney" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="stateid" jdbcType="INTEGER" property="stateid" />
+    <result column="paytype" jdbcType="INTEGER" property="paytype" />
+  </resultMap>
+  <insert id="addOrder" parameterType="com.cxk.cai.entity.Order" useGeneratedKeys="true" keyProperty="id">
+    insert into cai.order(uid, orderid, totalmoney, createtime, stateid) values(#{uid}, #{orderid}, #{totalmoney}, #{createtime}, 1)
+  </insert>
+
+    <delete id="delById" parameterType="integer">
+        delete from cai.order where id = #{id}
+    </delete>
+
+    <update id="updateState" parameterType="integer">
+        update cai.order set stateid = 2, paytype = #{paytype}, sid = #{sid} where id = #{id}
+    </update>
+
+  <update id="send" parameterType="integer">
+        update cai.order set stateid = 3 where id = #{id}
+  </update>
+
+  <update id="updateNoReceive" parameterType="integer">
+        update cai.order set stateid = 4 where id = #{id}
+  </update>
+
+  <update id="updateReceive" parameterType="integer">
+        update cai.order set stateid = 5 where id = #{id}
+  </update>
+</mapper>

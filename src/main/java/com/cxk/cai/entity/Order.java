@@ -3,47 +3,23 @@ package com.cxk.cai.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/**
+ * @author 喜闻乐见i
+ */
 @TableName("order")
 public class Order {
     @TableId(type = IdType.AUTO)
     private Integer id;
-
     private Integer uid;
-
     private String orderid;
-
     private Float totalmoney;
-
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createtime;
-
     private Integer stateid;
-
     private Integer paytype;
-
-    private String pay;
-
-    private String state;
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPay() {
-        return pay;
-    }
-
-    public void setPay(String pay) {
-        this.pay = pay;
-    }
+    private Integer sid;
 
     public Integer getId() {
         return id;
@@ -66,7 +42,7 @@ public class Order {
     }
 
     public void setOrderid(String orderid) {
-        this.orderid = orderid == null ? null : orderid.trim();
+        this.orderid = orderid;
     }
 
     public Float getTotalmoney() {

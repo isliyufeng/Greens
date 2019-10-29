@@ -73,4 +73,16 @@ public class Commodity {
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
+    @Override
+    public String toString() {
+        return "Commodity{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", oldprice=" + oldprice +
+                ", image='" + image + '\'' +
+                ", createtime=" + createtime +
+                '}';
+    }
 }
