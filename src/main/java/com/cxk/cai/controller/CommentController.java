@@ -7,6 +7,7 @@ import com.cxk.cai.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @RequestMapping("/comment")
 @RestController
+@CrossOrigin(value = "*", maxAge = 3600)
 @Api(value = "评论模块", tags = "评论模块的接口")
 public class CommentController {
     @Autowired

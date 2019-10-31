@@ -9,6 +9,7 @@ import com.cxk.cai.service.TwoTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/type")
+@CrossOrigin(value = "*", maxAge = 3600)
 @Api(value = "菜单模块", tags = "一级菜单、二级菜单的接口")
 public class TypeController {
     @Autowired
