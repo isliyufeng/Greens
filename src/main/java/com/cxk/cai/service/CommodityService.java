@@ -2,6 +2,7 @@ package com.cxk.cai.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cxk.cai.entity.Commodity;
+import com.cxk.cai.entity.CommodityVo;
 import com.cxk.cai.entity.ResultVo;
 
 import java.util.List;
@@ -40,4 +41,11 @@ public interface CommodityService extends IService<Commodity> {
      * @return
      */
     List<Commodity> selectCommodityByName(String name);
+
+    /**
+     * 获取指定id商品的库存
+     * @param cid
+     * @return
+     */
+    CommodityVo selectCommodityInventoryById(Integer cid);
 }

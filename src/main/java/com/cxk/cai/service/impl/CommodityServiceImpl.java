@@ -3,6 +3,7 @@ package com.cxk.cai.service.impl;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cxk.cai.entity.Commodity;
+import com.cxk.cai.entity.CommodityVo;
 import com.cxk.cai.entity.ResultVo;
 import com.cxk.cai.mapper.CommodityMapper;
 import com.cxk.cai.service.CommodityService;
@@ -38,5 +39,10 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public List<Commodity> selectCommodityByName(String name) {
         return mapper.selectCommodityByName(name);
 
+    }
+
+    @Override
+    public CommodityVo selectCommodityInventoryById(Integer cid) {
+        return mapper.getInventory(cid);
     }
 }

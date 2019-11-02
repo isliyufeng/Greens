@@ -1,6 +1,7 @@
 package com.cxk.cai.controller;
 
 import com.cxk.cai.entity.Commodity;
+import com.cxk.cai.entity.CommodityVo;
 import com.cxk.cai.entity.ResultVo;
 import com.cxk.cai.service.CommodityService;
 import io.swagger.annotations.Api;
@@ -47,5 +48,14 @@ public class CommodityController {
     public ResultVo selectCommodityByName(String name) {
         List<Commodity> commodities = commodityService.selectCommodityByName(name);
         return ResultVo.setSUCCESS(commodities);
+    }
+
+    @RequestMapping("/getCommodity.do")
+    @ApiOperation(value = "获取指定商品的库存", notes = "获取指定商品的库存的接口", httpMethod = "POST")
+    public ResultVo getCommodity(Integer id) {
+        CommodityVo commodityVo = commodityService.selectCommodityInventoryById(id);
+        Commodity byId = commodityService.getById(id);
+        commodityVo.setCommodity(byId);
+        return ResultVo.setSUCCESS(commodityVo);
     }
 }

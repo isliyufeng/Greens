@@ -55,7 +55,7 @@
             method: "post",
             data: $("#fm").serialize(),
             success: function (data) {
-                if (data.msg == "OK") {
+                if (data.msg = "OK") {
                     location.href = "index.html";
                 } else {
                     alert("账号或密码错误");

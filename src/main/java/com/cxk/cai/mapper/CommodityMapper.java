@@ -2,6 +2,7 @@ package com.cxk.cai.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cxk.cai.entity.Commodity;
+import com.cxk.cai.entity.CommodityVo;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -36,4 +37,12 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      */
     @Select("select * from cai.commodity where name like concat('%',#{name},'%')")
     List<Commodity> selectCommodityByName(String name);
+
+    /**
+     * 查询指定商品库存
+     * @param cid
+     * @return
+     */
+    @Select("select * from cai.commodity_inventory where cid = #{cid}")
+    CommodityVo getInventory(Integer cid);
 }
