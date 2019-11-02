@@ -20,6 +20,32 @@ public class Order {
     private Integer stateid;
     private Integer paytype;
     private Integer sid;
+    private String pay;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
+    }
 
     public Integer getId() {
         return id;
