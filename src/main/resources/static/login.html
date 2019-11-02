@@ -54,8 +54,8 @@
             url: "user/login.do",
             method: "post",
             data: $("#fm").serialize(),
-            success: function (obj) {
-                if (obj.code == 200) {
+            success: function (data) {
+                if (data.msg == "OK") {
                     location.href = "index.html";
                 } else {
                     alert("账号或密码错误");

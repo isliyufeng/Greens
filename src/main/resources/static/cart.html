@@ -2,7 +2,7 @@
 <html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <title>首页</title>
+    <title>我的购物车</title>
     <script src="media/js/jquery-1.12.4.min.js"></script>
     <script src="media/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -96,7 +96,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
+                <li><a href="index.html">首页 <span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -118,7 +118,7 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="cart.html">购物车</a></li>
+                <li class="active"><a href="#">购物车</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -148,54 +148,20 @@
 <div class="col-lg-10">
     <div class="col-lg-2"></div>
     <div class="col-lg-9">
-        <!-- 左侧 -->
-        <div class="col-lg-4">
-            <h3>菜单</h3>
-            <div id="firstpane" class="menu_list">
-                <div id="app-4">
-                    <ol>
-                        <li v-for="todo in todos">
-                            <p class="menu_head current">{{ todo.oneType.typename }}</p>
-                            <span v-for="to in todo.twoType">
-								<div style="display:block" class="menu_body">
-									<a href="javascript:void(0);" @click="fenlei(to.id)" :value="to.id">{{to.typename}}</a>
-								</div>
-							</span>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
         <!-- 右侧 -->
-        <div class="col-lg-8 xpss">
-            <div id="app-2">
-                <h3 v-show="ok">分类查看</h3><br><br>
-                <div>
-                    <ol>
-                        <li v-for="todo in todos">
-                            <div class="col-lg-6">
-                                <div class="sp">
-                                    <img class="image" v-bind:src="todo.image"><br>
-                                    <span>商品名称：</span>{{ todo.name }}<br>
-                                    <span>商品价格：</span>{{ todo.oldprice }}元<br>
-                                    <button @click="addCart(todo.id, todo.oldprice)" >加入购物车</button>
-                                </div>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <div>
-                <h3>新品上市</h3><br><br>
+        <div class="col-lg-12 xpss">
+            <div >
+                <h3>我的购物车</h3><br><br>
                 <div id="app-1">
                     <ol>
                         <li v-for="todo in todos">
                             <div class="col-lg-6">
                                 <div class="sp">
-                                    <img class="image" v-bind:src="todo.image"><br>
-                                    <span>商品名称：</span>{{ todo.name }}<br>
-                                    <span>商品价格：</span>{{ todo.oldprice }}元<br>
-                                    <button @click="addCart(todo.id, todo.oldprice)" >加入购物车</button>
+                                    <img class="image" v-bind:src="todo.commodity.image"><br>
+                                    <span>商品名称：</span>{{ todo.commodity.name }}<br>
+                                    <span>价格：</span>{{ todo.commodity.oldprice }}元<br>
+                                    <button @click="commodityInfo(todo.cid)">查看详情</button>
+                                    <button @click="delCart(todo.cartId)">移除购物车</button>
                                 </div>
                             </div>
                         </li>
@@ -207,64 +173,45 @@
 </div>
 <div class="col-lg-1"></div>
 <script>
-	var userId = '';
     $(function () {
-        /* 菜单 */
-        $.post("http://10.8.155.55:8080/type/getType.do", null, function (data) {
-            app4.todos = data.data;
-        });
-
-        /* 新品上市 */
-        $.post("http://10.8.155.55:8080/commodity/getNewCommodity.do", {"num": "9"}, function (data) {
-            app1.todos = data.data;
-        });
-
         /* 获取登录用户信息 */
-		$.post("http://localhost:8080/user/userMassage.do", null, function (data) {
-			userId = data.data.id;
-		});
+        $.post("http://localhost:8080/user/userMassage.do", null, function (data) {
+            userId = data.data.id;
+            /* 获取该用户购物车的商品 */
+            $.post("http://localhost:8080/cat/selectAll.do", {"id": userId}, function (data) {
+                app1.todos = data.data;
+            });
+        });
+
+
     });
 
-    // 按照分类展示商品
-    var app2 = new Vue({
-        el: "#app-2",
+    // 展示购物车中的商品
+    var app1 = new Vue({
+        el: "#app-1",
         data: {
-            ok: false,
-            todos: {}
+            todos: ''
+        },
+        methods: {
+            commodityInfo: function () {
+
+            },
+            delCart: function (cartId) {
+                $.post("http://localhost:8080/cat/del.do", {"id": cartId}, function (data) {
+                    if (data.msg = "OK") {
+                        alert("移除成功！");
+                        /* 获取该用户购物车的商品 */
+                        $.post("http://localhost:8080/cat/selectAll.do", {"id": userId}, function (data) {
+                            app1.todos = data.data;
+                        });
+                    } else {
+                        alert("网络波动，请刷新后重试！")
+                    }
+                });
+            }
         }
     });
 
-    var app4 = new Vue({
-        el: '#app-4',
-        data: {
-            todos: {}
-        },
-        methods: {
-        	fenlei: function (id) {
-				$.post("http://localhost:8080/commodity/getCommodityByTypeId.do", {"id": id, "num": "6"}, function (data) {
-						app2.ok = true;
-						app2.todos = data.data;
-					}
-				);
-			}
-		}
-    });
-
-    var app1 = new Vue({
-        el: '#app-1',
-        data: {
-            todos: {}
-        },
-		methods:{
-			addCart: function (id, price) {
-				$.post("http://localhost:8080/cat/add.do", {"cid": id, "number": "1", "price": price, "uid": userId}, function (data) {
-					if (data.msg == "OK"){
-						alert("已成功添加购物车");
-					}
-				});
-			}
-		}
-    });
 </script>
 
 </body>

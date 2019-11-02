@@ -55,4 +55,15 @@ public class Cat {
     public void setUid(Integer uid) {
         this.uid = uid;
     }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "id=" + id +
+                ", cid=" + cid +
+                ", uid=" + uid +
+                ", number=" + number +
+                ", price=" + price +
+                '}';
+    }
 }

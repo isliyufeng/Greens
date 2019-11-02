@@ -1,14 +1,17 @@
 package com.cxk.cai.controller;
 
-import com.cxk.cai.entity.Cat;
-import com.cxk.cai.entity.ResultVo;
+import com.cxk.cai.entity.*;
 import com.cxk.cai.service.CatService;
+import com.cxk.cai.service.CommodityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 喜闻乐见i
@@ -20,6 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CatController {
     @Autowired
     CatService catService;
+
+    @Autowired
+    UserController userController;
+
+    @Autowired
+    CommodityService commodityService;
 
     @RequestMapping("/add.do")
     @ApiOperation(value = "添加购物车", notes = "添加购物车的接口", httpMethod = "POST")
@@ -41,7 +50,23 @@ public class CatController {
     @RequestMapping("/selectAll.do")
     @ApiOperation(value = "查询购物车中所有的商品", notes = "查询购物车中所有的商品的接口", httpMethod = "POST")
     public ResultVo selectAll(Integer id) {
-        return ResultVo.setSUCCESS(catService.selectAll(id));
+        // 查询购物车表中该用户的所有信息
+        List<Cat> cats = catService.selectAll(id);
+        // 获取当前用户id
+        ResultVo resultVo = userController.UserMassage();
+        User user = (User) resultVo.getData();
+        // 查询订单中对应的商品信息
+        List<CartVo> list = new ArrayList<>();
+        for (Cat cat : cats) {
+            CartVo cartVo = new CartVo();
+            Commodity com = commodityService.getById(cat.getCid());
+            cartVo.setCartId(cat.getId());
+            cartVo.setUid(user.getId());
+            cartVo.setCid(cat.getCid());
+            cartVo.setCommodity(commodityService.getCommodityInfoById(cat.getCid()));
+            list.add(cartVo);
+        }
+        return ResultVo.setSUCCESS(list);
     }
 
     @RequestMapping("/updateByNumber.do")
