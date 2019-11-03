@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cxk.cai.entity.Commodity;
 import com.cxk.cai.entity.CommodityVo;
 import com.cxk.cai.entity.ResultVo;
+import com.cxk.cai.mapper.CommodityInventoryMapper;
 import com.cxk.cai.mapper.CommodityMapper;
 import com.cxk.cai.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import java.util.List;
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements CommodityService {
     @Autowired
     CommodityMapper mapper;
+
+    @Autowired
+    CommodityInventoryMapper inventoryMapper;
 
     @Override
     public List<Commodity> getNewCommodity(Integer num) {
@@ -45,4 +49,24 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public CommodityVo selectCommodityInventoryById(Integer cid) {
         return mapper.getInventory(cid);
     }
+
+    @Override
+    public boolean updateInventory(Integer[] cid) {
+        for (Integer id : cid) {
+            CommodityVo inventory = mapper.getInventory(id);
+            System.out.println(inventory);
+            if (inventory.getInventory() - 1 >= 0) {
+                int i = inventoryMapper.updateInventory(id, inventory.getInventory() - 1, inventory.getSellnumber() + 1);
+                if (i <= 0) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+
 }

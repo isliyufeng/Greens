@@ -99,7 +99,9 @@
             <div class="col-lg-6 Info">
                 商品名称：{{ todos.name }}<br>
                 商品价格：<span style="color: red">{{ todos.oldprice }} ￥</span><br>
-                库存： {{lalala.inventory}}
+                库存： {{lalala.inventory}}<br>
+                已售： {{lalala.sellnumber}}<br>
+                <button @click="buy(lalala.cid)">立即购买</button>
             </div>
         </div>
 
@@ -116,6 +118,7 @@
     }
 
     var userId = '';
+    var oid = '';
     $(function () {
         /* 获取登录用户信息 */
         $.post("http://localhost:8080/user/userMassage.do", null, function (data) {
@@ -124,6 +127,7 @@
 
         /* 获取商品id */
         var id = GetQueryString('id');
+        oid = id;
         /* 查询商品信息 */
         $.post("http://localhost:8080/commodity/getCommodityInfoById.do", {"id": id}, function (data) {
             app1.todos = data.data;
@@ -139,9 +143,22 @@
         el: "#app-1",
         data: {
             todos: '',
-            lalala: ''
+            lalala: '',
+            cid: ''
         },
-        methods: {}
+        methods: {
+            buy: function (cid) {
+                $.post("http://localhost:8080/order/addOrder.do", {"cid": cid, "uid": userId}, function (data) {
+                    if (data.data = "OK") {
+                        alert("购买成功！");
+                        /* 查库存 */
+                        $.post("http://localhost:8080/commodity/getCommodity.do", {"id": oid}, function (data) {
+                            app1.lalala = data.data;
+                        });
+                    }
+                })
+            }
+        }
     });
 
 </script>

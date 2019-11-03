@@ -1,6 +1,7 @@
 package com.cxk.cai.controller;
 
 import com.cxk.cai.entity.ResultVo;
+import com.cxk.cai.service.CommodityService;
 import com.cxk.cai.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,12 +21,16 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    CommodityService commodityService;
+
     @RequestMapping("/addOrder.do")
     @ApiOperation(value = "添加订单", notes = "添加订单的接口", httpMethod = "POST")
     public ResultVo addOrder(Integer uid, Integer[] cid) {
         if (!"".equals(uid) && uid != null) {
             boolean result = orderService.addOrder(uid, cid);
-            if (result) {
+            boolean in = commodityService.updateInventory(cid);
+            if (result && in) {
                 return ResultVo.setSUCCESS("OK");
             }
         }

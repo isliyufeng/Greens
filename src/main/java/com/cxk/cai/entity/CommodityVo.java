@@ -46,4 +46,15 @@ public class CommodityVo {
     public void setSellnumber(Integer sellnumber) {
         this.sellnumber = sellnumber;
     }
+
+    @Override
+    public String toString() {
+        return "CommodityVo{" +
+                "id=" + id +
+                ", commodity=" + commodity +
+                ", cid=" + cid +
+                ", inventory=" + inventory +
+                ", sellnumber=" + sellnumber +
+                '}';
+    }
 }

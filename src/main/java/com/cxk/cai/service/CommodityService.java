@@ -30,6 +30,7 @@ public interface CommodityService extends IService<Commodity> {
 
     /**
      * 根据商品id获取商品信息
+     *
      * @param id 商品id
      * @return
      */
@@ -37,6 +38,7 @@ public interface CommodityService extends IService<Commodity> {
 
     /**
      * 根据关键字查询商品
+     *
      * @param name
      * @return
      */
@@ -44,8 +46,19 @@ public interface CommodityService extends IService<Commodity> {
 
     /**
      * 获取指定id商品的库存
+     *
      * @param cid
      * @return
      */
     CommodityVo selectCommodityInventoryById(Integer cid);
+
+    /**
+     * 卖出商品修改库存
+     *
+     * @param cid
+     * @return
+     */
+    boolean updateInventory(Integer[] cid);
+
+
 }

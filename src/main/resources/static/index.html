@@ -152,7 +152,8 @@
                             <p class="menu_head current">{{ todo.oneType.typename }}</p>
                             <span v-for="to in todo.twoType">
 								<div style="display:block" class="menu_body">
-									<a href="javascript:void(0);" @click="fenlei(to.id)" :value="to.id">{{to.typename}}</a>
+									<a href="javascript:void(0);" @click="fenlei(to.id)"
+                                       :value="to.id">{{to.typename}}</a>
 								</div>
 							</span>
                         </li>
@@ -169,10 +170,12 @@
                         <li v-for="todo in todos">
                             <div class="col-lg-6">
                                 <div class="sp">
-                                    <img class="image" v-bind:src="todo.image"><br>
-                                    <span>商品名称：</span>{{ todo.name }}<br>
-                                    <span>商品价格：</span>{{ todo.oldprice }}元<br>
-                                    <button @click="addCart(todo.id, todo.oldprice)" >加入购物车</button>
+                                    <a href="javascript:void(0);" @click="tiaozhuan(todo.id)">
+                                        <img class="image" v-bind:src="todo.image"><br>
+                                        <span>商品名称：</span>{{ todo.name }}<br>
+                                        <span>商品价格：</span>{{ todo.oldprice }}元<br>
+                                    </a>
+                                        <button @click="addCart(todo.id, todo.oldprice)">加入购物车</button>
                                 </div>
                             </div>
                         </li>
@@ -186,10 +189,12 @@
                         <li v-for="todo in todos">
                             <div class="col-lg-6">
                                 <div class="sp">
+                                    <a href="javascript:void(0);" @click="tiaozhuan(todo.id)">
                                     <img class="image" v-bind:src="todo.image"><br>
                                     <span>商品名称：</span>{{ todo.name }}<br>
                                     <span>商品价格：</span>{{ todo.oldprice }}元<br>
-                                    <button @click="addCart(todo.id, todo.oldprice)" >加入购物车</button>
+                                    </a>
+                                    <button @click="addCart(todo.id, todo.oldprice)">加入购物车</button>
                                 </div>
                             </div>
                         </li>
@@ -201,7 +206,7 @@
 </div>
 <div class="col-lg-1"></div>
 <script>
-	var userId = '';
+    var userId = '';
     $(function () {
         /* 菜单 */
         $.post("http://10.8.155.55:8080/type/getType.do", null, function (data) {
@@ -214,9 +219,9 @@
         });
 
         /* 获取登录用户信息 */
-		$.post("http://localhost:8080/user/userMassage.do", null, function (data) {
-			userId = data.data.id;
-		});
+        $.post("http://localhost:8080/user/userMassage.do", null, function (data) {
+            userId = data.data.id;
+        });
     });
 
     // 按照分类展示商品
@@ -225,6 +230,11 @@
         data: {
             ok: false,
             todos: {}
+        },
+        methods: {
+            tiaozhuan: function (id) {
+                location.href = "commodityInfo.html?id=" + id;
+            }
         }
     });
 
@@ -234,14 +244,17 @@
             todos: {}
         },
         methods: {
-        	fenlei: function (id) {
-				$.post("http://localhost:8080/commodity/getCommodityByTypeId.do", {"id": id, "num": "6"}, function (data) {
-						app2.ok = true;
-						app2.todos = data.data;
-					}
-				);
-			}
-		}
+            fenlei: function (id) {
+                $.post("http://localhost:8080/commodity/getCommodityByTypeId.do", {
+                        "id": id,
+                        "num": "6"
+                    }, function (data) {
+                        app2.ok = true;
+                        app2.todos = data.data;
+                    }
+                );
+            }
+        }
     });
 
     var app1 = new Vue({
@@ -249,15 +262,23 @@
         data: {
             todos: {}
         },
-		methods:{
-			addCart: function (id, price) {
-				$.post("http://localhost:8080/cat/add.do", {"cid": id, "number": "1", "price": price, "uid": userId}, function (data) {
-					if (data.msg == "OK"){
-						alert("已成功添加购物车");
-					}
-				});
-			}
-		}
+        methods: {
+            addCart: function (id, price) {
+                $.post("http://localhost:8080/cat/add.do", {
+                    "cid": id,
+                    "number": "1",
+                    "price": price,
+                    "uid": userId
+                }, function (data) {
+                    if (data.msg == "OK") {
+                        alert("已成功添加购物车");
+                    }
+                });
+            },
+            tiaozhuan: function (id) {
+                location.href = "commodityInfo.html?id=" + id;
+            }
+        }
     });
 </script>
 

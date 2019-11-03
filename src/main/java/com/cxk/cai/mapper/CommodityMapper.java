@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cxk.cai.entity.Commodity;
 import com.cxk.cai.entity.CommodityVo;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -45,4 +46,5 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      */
     @Select("select * from cai.commodity_inventory where cid = #{cid}")
     CommodityVo getInventory(Integer cid);
+
 }

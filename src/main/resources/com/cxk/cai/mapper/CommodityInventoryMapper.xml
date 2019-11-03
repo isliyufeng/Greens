@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxk.cai.mapper.CommodityInventoryMapper">
+  <resultMap id="BaseResultMap" type="com.cxk.cai.entity.CommodityInventory">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="inventory" jdbcType="INTEGER" property="inventory" />
+    <result column="sellnumber" jdbcType="INTEGER" property="sellnumber" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, cid, inventory, sellnumber
+  </sql>
+
+  <update id="updateInventory" parameterType="int">
+    update cai.commodity_inventory set inventory = #{i}, sellnumber = #{i1} where cid = #{id}
+  </update>
+</mapper>
