@@ -41,4 +41,10 @@ public class AddressController {
     public ResultVo delAddress(Integer id) {
         return addressService.delAddress(id);
     }
+
+    @RequestMapping("/updateAddress.do")
+    @ApiOperation(value = "修改用户收货地址", notes = "修改用户收货地址接口", httpMethod = "POST")
+    public ResultVo updateAddress(ShAddress shAddress) {
+        return addressService.updateAddress(shAddress);
+    }
 }

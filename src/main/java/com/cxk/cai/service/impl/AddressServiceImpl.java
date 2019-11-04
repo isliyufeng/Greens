@@ -55,4 +55,10 @@ public class AddressServiceImpl extends ServiceImpl<CommodityMapper, Commodity> 
             return ResultVo.setERROR();
         }
     }
+
+    @Override
+    public ResultVo updateAddress(ShAddress shAddress) {
+        int updateAddress = addressMapper.updateAddress(shAddress);
+        return ResultVo.setSUCCESS(updateAddress);
+    }
 }

@@ -220,7 +220,10 @@
                                 <td>{{todo.detailAddress}}</td>
                                 <td>{{todo.name}}</td>
                                 <td>{{todo.phone}}</td>
-                                <td><a href="javascript:void(0)" @click="delAddress(todo.id)">删除</a></td>
+                                <td>
+                                    <a href="javascript:void(0)" @click="delAddress(todo.id)">删除</a> ||
+                                    <a href="javascript:void(0)" @click="zhuan(todo.id)">修改</a>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -234,8 +237,18 @@
                     详细地址：<input id="xxdz" type="text"><br/><br/>
                     收货人姓名：<input id="name" type="text"><br/><br/>
                     电话号码：<input id="phone" type="text"><br/><br/>
-
                     <button onclick="insertAddress()">提交</button>
+                </div>
+            </div>
+            <!--修改收货地址-->
+            <div id="app-13" v-show="ok">
+                <div><p>修改地址</p></div>
+                <div>
+                    收货地区：<input id="shdq1" type="text"><br/><br/>
+                    详细地址：<input id="xxdz1" type="text"><br/><br/>
+                    收货人姓名：<input id="name1" type="text"><br/><br/>
+                    电话号码：<input id="phone1" type="text"><br/><br/>
+                    <button onclick="updateAddress()">提交</button>
                 </div>
             </div>
         </div>
@@ -256,6 +269,7 @@
         });
     });
 
+
     var app1 = new Vue({
         el: "#app-1-1",
         methods: {
@@ -269,6 +283,7 @@
                     app11.ok = false;
                     app3_3.ok = false;
                     app12.ok = false;
+                    app13.ok = false;
                 });
             }
         }
@@ -293,6 +308,7 @@
                             app11.ok = false;
                             app3_3.ok = false;
                             app12.ok = false;
+                            app13.ok = false;
                         });
                     } else {
                         alert("删除失败")
@@ -315,6 +331,7 @@
                     app11.ok = false;
                     app3_3.ok = false;
                     app12.ok = false;
+                    app13.ok = false;
                 });
             }
         }
@@ -339,6 +356,7 @@
                             app11.ok = false;
                             app3_3.ok = false;
                             app12.ok = false;
+                            app13.ok = false;
                         });
                     } else
                     {
@@ -349,6 +367,7 @@
         }
     });
 
+    var id = '';
     var app3 = new Vue({
         el: "#app-3-1",
         methods: {
@@ -362,6 +381,7 @@
                     app11.ok = false;
                     app3_3.ok = false;
                     app12.ok = false;
+                    app13.ok = false;
                 });
             },
             mySafety: function () {
@@ -372,12 +392,14 @@
                 app11.ok = false;
                 app3_3.ok = false;
                 app12.ok = false;
+                app13.ok = false;
             },
             myAddress: function () {
                 $.post("http://localhost:8080/address/numberAddress.do", {"uid": userId}, function (data3) {
                     app3_3.abc = data3.data;
                 });
                 $.post("http://localhost:8080/address/allAddress.do", {"uid": userId}, function (data2) {
+                    id = data2.data.id;
                     app3_3.todos = data2.data;
                     app3_3.ok = true;
                     app3_1.ok = false;
@@ -386,6 +408,7 @@
                     app3_1_2.ok = false;
                     app11.ok = false;
                     app12.ok = false;
+                    app13.ok = false;
                 })
             }
         }
@@ -414,12 +437,24 @@
                             app3_1_2.ok = false;
                             app11.ok = false;
                             app12.ok = false;
+                            app13.ok = false;
                         });
                     } else {
                         alert("删除失败")
                     }
                 })
             },
+            zhuan: function() {
+                    app3_3.ok = false;
+                    app3_1.ok = false;
+                    app2_1.ok = false;
+                    app1_1.ok = false;
+                    app3_1_2.ok = false;
+                    app11.ok = false;
+                    app12.ok = false;
+                    app13.ok = true;
+            },
+
             tiao: function () {
                 app3_3.ok = false;
                 app3_1.ok = false;
@@ -427,8 +462,17 @@
                 app1_1.ok = false;
                 app3_1_2.ok = false;
                 app11.ok = false;
+                app13.ok = false;
                 app12.ok = true;
             }
+        }
+    });
+
+    var app13 = new Vue({
+        el: "#app-13",
+        data: {
+            ok: false,
+            todos: {}
         }
     });
 
@@ -439,6 +483,31 @@
             todos: {}
         }
     });
+
+    function updateAddress() {
+
+        var shdq1 = $("#shdq1").val();
+        var xxdz1 = $("#xxdz1").val();
+        var name1 = $("#name1").val();
+        var phone1 = $("#phone1").val();
+        $.post("http://localhost:8080/address/updateAddress.do", {"address": shdq1, "detailAddress": xxdz1, "name": name1, "phone": phone1, "uid": userId, "id": id}, function () {
+            $.post("http://localhost:8080/address/numberAddress.do", {"uid": userId}, function (data3) {
+                app3_3.abc = data3.data;
+            });
+            $.post("http://localhost:8080/address/allAddress.do", {"uid": userId}, function (data2) {
+                app3_3.todos = data2.data;
+                app3_3.ok = false;
+                app3_1.ok = false;
+                app2_1.ok = false;
+                app1_1.ok = false;
+                app3_1_2.ok = false;
+                app11.ok = false;
+                app12.ok = false;
+                app13.ok = true;
+            });
+        });
+
+    }
 
     function insertAddress() {
 
@@ -459,6 +528,7 @@
                 app3_1_2.ok = false;
                 app11.ok = false;
                 app12.ok = false;
+                app13.ok = false;
             });
         });
 
@@ -485,6 +555,7 @@
                 app2_1.ok = false;
                 app1_1.ok = false;
                 app12.ok = false;
+                app13.ok = false;
             }
         }
     });
@@ -499,6 +570,7 @@
             app2_1.ok = false;
             app1_1.ok = false;
             app12.ok = false;
+            app13.ok = false;
         })
     }
 

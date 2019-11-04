@@ -36,4 +36,6 @@ public interface AddressMapper extends BaseMapper<Commodity> {
 
     @Delete("delete from cai.shaddress where id = #{id};")
     int delAddress(Integer id);
+
+    int updateAddress(ShAddress shAddress);
 }

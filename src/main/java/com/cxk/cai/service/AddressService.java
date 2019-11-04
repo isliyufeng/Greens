@@ -13,4 +13,6 @@ public interface AddressService extends IService<Commodity> {
     ResultVo numberAddress(Integer uid);
 
     ResultVo delAddress(Integer id);
+
+    ResultVo updateAddress(ShAddress shAddress);
 }
