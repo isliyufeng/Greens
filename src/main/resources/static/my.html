@@ -85,14 +85,6 @@
     <div class="col-lg-8 jumbotron">
         <h1>Cai篮网商城</h1>
         <p>领鲜每一天，安全送到家</p>
-        <form class="form-inline ss">
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail3"></label>
-                <input type="text" class="form-control" id="exampleInputEmail3" style="width: 300px;">
-            </div>
-            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"
-                                                                aria-hidden="true"></span></button>
-        </form>
     </div>
     <div class="col-lg-2 jumbotron"></div>
 </div>
@@ -120,7 +112,7 @@
                 <ul>
                     <li><a href="javascript:void(0);" @click="myMassage">个人信息</a></li>
                     <li><a href="javascript:void(0);" @click="mySafety">安全中心</a></li>
-
+                    <li><a href="javascript:void(0);" @click="myAddress">收货地址</a></li>
                 </ul>
             </div>
         </div>
@@ -211,7 +203,41 @@
                     <button onclick="updatePassword()">确认修改</button>
                 </div>
             </div>
+            <!--收货地址-->
+            <div id="app-3-2-3"  v-show="ok">
+                <div><p>已有{{abc}}收货地址</p></div>
+                <div><a href="javascript:void(0)" @click="tiao">添加收货地址</a></div>
+                <div>
+                    <div>
+                        <table class="table">
+                            <tr>
+                                <th>地址</th>
+                                <th>收货人</th>
+                                <th>联系电话</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr v-for="todo in todos">
+                                <td>{{todo.detailAddress}}</td>
+                                <td>{{todo.name}}</td>
+                                <td>{{todo.phone}}</td>
+                                <td><a href="javascript:void(0)" @click="delAddress(todo.id)">删除</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--添加收货地址-->
+            <div id="app-12" v-show="ok">
+                <div><p>添加地址</p></div>
+                <div>
+                    收货地区：<input id="shdq" type="text"><br/><br/>
+                    详细地址：<input id="xxdz" type="text"><br/><br/>
+                    收货人姓名：<input id="name" type="text"><br/><br/>
+                    电话号码：<input id="phone" type="text"><br/><br/>
 
+                    <button onclick="insertAddress()">提交</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -241,7 +267,8 @@
                     app3_1.ok = false;
                     app3_1_2.ok = false;
                     app11.ok = false;
-
+                    app3_3.ok = false;
+                    app12.ok = false;
                 });
             }
         }
@@ -264,7 +291,8 @@
                             app3_1.ok = false;
                             app3_1_2.ok = false;
                             app11.ok = false;
-
+                            app3_3.ok = false;
+                            app12.ok = false;
                         });
                     } else {
                         alert("删除失败")
@@ -285,7 +313,8 @@
                     app1_1.ok = false;
                     app3_1_2.ok = false;
                     app11.ok = false;
-
+                    app3_3.ok = false;
+                    app12.ok = false;
                 });
             }
         }
@@ -308,7 +337,8 @@
                             app3_1.ok = false;
                             app3_1_2.ok = false;
                             app11.ok = false;
-
+                            app3_3.ok = false;
+                            app12.ok = false;
                         });
                     } else
                     {
@@ -330,7 +360,8 @@
                     app1_1.ok = false;
                     app3_1_2.ok = false;
                     app11.ok = false;
-
+                    app3_3.ok = false;
+                    app12.ok = false;
                 });
             },
             mySafety: function () {
@@ -339,10 +370,100 @@
                 app2_1.ok = false;
                 app1_1.ok = false;
                 app11.ok = false;
-
+                app3_3.ok = false;
+                app12.ok = false;
+            },
+            myAddress: function () {
+                $.post("http://localhost:8080/address/numberAddress.do", {"uid": userId}, function (data3) {
+                    app3_3.abc = data3.data;
+                });
+                $.post("http://localhost:8080/address/allAddress.do", {"uid": userId}, function (data2) {
+                    app3_3.todos = data2.data;
+                    app3_3.ok = true;
+                    app3_1.ok = false;
+                    app2_1.ok = false;
+                    app1_1.ok = false;
+                    app3_1_2.ok = false;
+                    app11.ok = false;
+                    app12.ok = false;
+                })
             }
         }
     });
+    var app3_3 = new Vue({
+        el: "#app-3-2-3",
+        data: {
+            ok: false,
+            todos: {},
+            abc:{}
+        },
+        methods: {
+            delAddress: function (id) {
+                $.post("http://localhost:8080/address/delAddress.do", {"id": id}, function (data) {
+                    if (data.data = "OK") {
+                        alert("删除成功");
+                        $.post("http://localhost:8080/address/numberAddress.do", {"uid": userId}, function (data3) {
+                            app3_3.abc = data3.data;
+                        });
+                        $.post("http://localhost:8080/address/allAddress.do", {"uid": userId}, function (data2) {
+                            app3_3.todos = data2.data;
+                            app3_3.ok = true;
+                            app3_1.ok = false;
+                            app2_1.ok = false;
+                            app1_1.ok = false;
+                            app3_1_2.ok = false;
+                            app11.ok = false;
+                            app12.ok = false;
+                        });
+                    } else {
+                        alert("删除失败")
+                    }
+                })
+            },
+            tiao: function () {
+                app3_3.ok = false;
+                app3_1.ok = false;
+                app2_1.ok = false;
+                app1_1.ok = false;
+                app3_1_2.ok = false;
+                app11.ok = false;
+                app12.ok = true;
+            }
+        }
+    });
+
+    var app12 = new Vue({
+        el: "#app-12",
+        data: {
+            ok: false,
+            todos: {}
+        }
+    });
+
+    function insertAddress() {
+
+        var shdq = $("#shdq").val();
+        var xxdz = $("#xxdz").val();
+        var name = $("#name").val();
+        var phone = $("#phone").val();
+        $.post("http://localhost:8080/address/insertAddress.do", {"address": shdq, "detailAddress": xxdz, "name": name, "phone": phone, "uid": userId}, function () {
+            $.post("http://localhost:8080/address/numberAddress.do", {"uid": userId}, function (data3) {
+                    app3_3.abc = data3.data;
+            });
+            $.post("http://localhost:8080/address/allAddress.do", {"uid": userId}, function (data2) {
+                app3_3.todos = data2.data;
+                app3_3.ok = true;
+                app3_1.ok = false;
+                app2_1.ok = false;
+                app1_1.ok = false;
+                app3_1_2.ok = false;
+                app11.ok = false;
+                app12.ok = false;
+            });
+        });
+
+    }
+
     var app3_1 = new Vue({
         el: "#app-3-2-1",
         data: {
@@ -357,21 +478,13 @@
             todos: {}
         },
         methods: {
-            // updatePassword: function () {
-            //     $.post = ("http://localhost:8080/user/updateUserPassword.do", null, function () {
-            //         app11.ok = false;
-            //         app3_1_2.ok = true;
-            //         app3_1.ok = false;
-            //         app2_1.ok = false;
-            //         app1_1.ok = false;
-            //     })
-            // },
             tiaozhuan: function () {
                 app11.ok = true;
                 app3_1_2.ok = false;
                 app3_1.ok = false;
                 app2_1.ok = false;
                 app1_1.ok = false;
+                app12.ok = false;
             }
         }
     });
@@ -385,6 +498,7 @@
             app3_1.ok = false;
             app2_1.ok = false;
             app1_1.ok = false;
+            app12.ok = false;
         })
     }
 

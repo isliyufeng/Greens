@@ -29,4 +29,16 @@ public class AddressController {
     public ResultVo insertAddress(ShAddress shAddress) {
         return addressService.insertAddress(shAddress);
     }
+
+    @RequestMapping("/numberAddress.do")
+    @ApiOperation(value = "查询用户收货地址个数", notes = "查询用户收货地址个数接口", httpMethod = "POST")
+    public ResultVo numberAddress(Integer uid) {
+        return addressService.numberAddress(uid);
+    }
+
+    @RequestMapping("/delAddress.do")
+    @ApiOperation(value = "删除用户收货地址", notes = "删除用户收货地址接口", httpMethod = "POST")
+    public ResultVo delAddress(Integer id) {
+        return addressService.delAddress(id);
+    }
 }

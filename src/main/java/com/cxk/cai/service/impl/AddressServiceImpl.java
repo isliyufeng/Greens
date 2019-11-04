@@ -34,4 +34,25 @@ public class AddressServiceImpl extends ServiceImpl<CommodityMapper, Commodity> 
         int shAddressList = addressMapper.insertAddress(shAddress);
         return ResultVo.setSUCCESS(shAddressList);
     }
+
+    @Override
+    public ResultVo numberAddress(Integer uid) {
+        if (uid != null && !"".equals(uid)) {
+            //根据用户ID查询用户的收货地址个数
+            int numberAddress = addressMapper.numberAddress(uid);
+            return ResultVo.setSUCCESS(numberAddress);
+        } else {
+            return ResultVo.setERROR();
+        }
+    }
+
+    @Override
+    public ResultVo delAddress(Integer id) {
+        int delAddress = addressMapper.delAddress(id);
+        if (delAddress > 0) {
+            return ResultVo.setSUCCESS(delAddress);
+        } else {
+            return ResultVo.setERROR();
+        }
+    }
 }
