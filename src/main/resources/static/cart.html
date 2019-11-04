@@ -90,39 +90,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Brand</a>
+            <a class="navbar-brand" href="index.html">Cai篮网</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">首页 <span class="sr-only">(current)</span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
+                <li><a href="index.html">首页<span class="sr-only">(current)</span></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="cart.html">购物车</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
+                    <a href="my.html">个人中心</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -144,7 +123,7 @@
     <div class="col-lg-9">
         <!-- 右侧 -->
         <div class="col-lg-12 xpss">
-            <div >
+            <div>
                 <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     我的购物车
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -153,7 +132,8 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button onclick="buyAll()">购买全部</button></h3>
+                    <button onclick="buyAll()">购买全部</button>
+                </h3>
                 <br><br>
                 <div id="app-1">
                     <ol>
@@ -161,9 +141,9 @@
                             <div class="col-lg-6">
                                 <div class="sp">
                                     <a href="javascript:void(0);" @click="tiaozhuan(todo.commodity.id)">
-                                    <img class="image" v-bind:src="todo.commodity.image"><br>
-                                    <span>商品名称：</span>{{ todo.commodity.name }}<br>
-                                    <span>价格：</span>{{ todo.commodity.oldprice }}元<br>
+                                        <img class="image" v-bind:src="todo.commodity.image"><br>
+                                        <span>商品名称：</span>{{ todo.commodity.name }}<br>
+                                        <span>价格：</span>{{ todo.commodity.oldprice }}元<br>
                                     </a>
                                     <button @click="addCart(todo.cid)">购买</button>
                                     <button @click="delCart(todo.cartId)">移除</button>
@@ -220,7 +200,7 @@
                 });
             },
             tiaozhuan: function (id) {
-                location.href="commodityInfo.html?id=" + id;
+                location.href = "commodityInfo.html?id=" + id;
             }
         }
     });
