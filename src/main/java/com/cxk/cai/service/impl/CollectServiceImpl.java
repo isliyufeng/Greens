@@ -40,7 +40,7 @@ public class CollectServiceImpl extends ServiceImpl<CommodityMapper, Commodity> 
                 return ResultVo.setERROR();
             } else {
                 //没有收藏便执行以下方法，收藏商品
-                List<Collect> collectList = collectMapper.userCollect(collect);
+                int collectList = collectMapper.userCollect(collect);
                 return ResultVo.setSUCCESS(collectList);
             }
         } else {

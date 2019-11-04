@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>首页</title>
@@ -19,9 +19,6 @@
             text-align: center;
         }
 
-        .bt {
-            text-align: left;
-        }
 
         li {
             list-style: none;
@@ -65,12 +62,6 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
@@ -114,36 +105,113 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-10">
         <!-- 左侧 -->
-        <div class="col-lg-1" style="width: 284px;" id="app-1">
-            <div id="course" class="main_left"><h4>交易管理</h4>
+        <div class="col-lg-1" style="width: 284px;">
+            <div class="main_left" id="app-1-1"><h4>交易管理</h4>
                 <ul>
                     <li><a href="javascript:void(0);" @click="myOrder">我的订单</a></li>
+                </ul>
+            </div>
+            <div class="main_left" id="app-2-1"><h4>我的账户</h4>
+                <ul>
+                    <li><a href="javascript:void(0);" @click="myComment">商品收藏</a></li>
+                </ul>
+            </div>
+            <div class="main_left" id="app-3-1"><h4>个人信息管理</h4>
+                <ul>
+                    <li><a href="javascript:void(0);" @click="myMassage">个人信息</a></li>
+                    <li><a href="javascript:void(0);" @click="mySafety">安全中心</a></li>
+
                 </ul>
             </div>
         </div>
         <!-- 右侧 -->
         <div class="col-lg-9 main_right">
-            <div><p>我的订单</p></div>
-            <div>
-                <div id="app-2">
-                    <table class="table">
-                        <tr>
-                            <th>订单号</th>
-                            <th>金额</th>
-                            <th>下单时间</th>
-                            <th>订单状态</th>
-                            <th>支付方式</th>
-                        </tr>
-                        <tr v-for="todo in todos">
-                            <td>{{todo.orderid}}</td>
-                            <td>{{todo.totalmoney}}</td>
-                            <td>{{todo.createtime}}</td>
-                            <td>{{todo.state}}</td>
-                            <td>{{todo.pay}}</td>
-                        </tr>
-                    </table>
+            <!--订单-->
+            <div id="app-1-2"  v-show="ok">
+                <div><p>我的订单</p></div>
+                <div>
+                    <div>
+                        <table class="table">
+                            <tr>
+                                <th>订单号</th>
+                                <th>金额</th>
+                                <th>下单时间</th>
+                                <th>订单状态</th>
+                                <th>支付方式</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr v-for="todo in todos">
+                                <td>{{todo.orderid}}</td>
+                                <td>{{todo.totalmoney}}</td>
+                                <td>{{todo.createtime}}</td>
+                                <td>{{todo.state}}</td>
+                                <td>{{todo.pay}}</td>
+                                <td><a href="javascript:void(0)" @click="delOrder(todo.id)">删除</a></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <!--收藏-->
+            <div id="app-2-2" v-show="ok">
+                <div><p>商品收藏</p></div>
+                <div>
+                    <div>
+                        <table class="table">
+                            <tr>
+                                <th>商品名称</th>
+                                <th>金额</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr v-for="todo in todos">
+                                <td>{{todo.name}}</td>
+                                <td>{{todo.oldprice}}</td>
+                                <td><a href="javascript:void(0)" @click="delCollect(todo.uid,todo.cid)">删除</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--个人信息-->
+            <div id="app-3-2-1">
+                <div v-show="ok"><p>个人信息</p></div>
+                <div>
+                    <div>
+                        <table class="table" v-show="ok">
+                            <tr>
+                                <th>用户名：{{todos.name}}</th>
+                                <th>手机号：{{todos.phone}}</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--安全中心-->
+            <div id="app-3-2-2" v-show="ok">
+                <div><p>安全中心</p></div>
+                <div>
+                    <div>
+                        <table class="table">
+                            <tr>
+                                <th>登录密码</th>
+                                <th><a href="javascript:void(0)" @click="tiaozhuan">修改</a></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--修改密码-->
+            <div id="app-11" v-show="ok">
+                <div><p>修改密码</p></div>
+                <div>
+                    旧密码：<input id="oldPassword" type="password" onblur="jiaoyan()">
+                    <span id="tishi"></span><br/><br/>
+                    新密码：<input id="newPassword" type="password"><br/><br/>
+                    确认新密码：<input id="newPassword2" type="password"><span id="passMsg"></span><br/><br/>
+                    <button onclick="updatePassword()">确认修改</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -152,32 +220,205 @@
 
 <script>
     var userId = '';
+    var phone = '';
+    var pass = '';
     $(function () {
         $.post("http://localhost:8080/user/userMassage.do", null, function (data) {
             userId = data.data.id;
+            phone = data.data.phone;
+            pass = data.data.password;
         });
     });
 
     var app1 = new Vue({
-        el: "#app-1",
+        el: "#app-1-1",
         methods: {
             myOrder: function () {
                 $.post("http://localhost:8080/user/userOrder.do", {"uid": userId}, function (data) {
-                    alert(data.data);
-                    app2.todos = data.data;
+                    app1_1.todos = data.data;
+                    app1_1.ok = true;
+                    app2_1.ok = false;
+                    app3_1.ok = false;
+                    app3_1_2.ok = false;
+                    app11.ok = false;
 
                 });
             }
         }
     });
-
-    var app2 = new Vue({
-        el: "#app-2",
+    var app1_1 = new Vue({
+        el: "#app-1-2",
         data: {
+            ok: false,
             todos: {}
+        },
+        methods: {
+            delOrder: function (id) {
+                $.post("http://localhost:8080/order/delOrder.do", {"id": id}, function (data) {
+                    if (data.data = "OK") {
+                        alert("删除成功");
+                        $.post("http://localhost:8080/user/userOrder.do", {"uid": userId}, function (data) {
+                            app1_1.todos = data.data;
+                            app1_1.ok = true;
+                            app2_1.ok = false;
+                            app3_1.ok = false;
+                            app3_1_2.ok = false;
+                            app11.ok = false;
+
+                        });
+                    } else {
+                        alert("删除失败")
+                    }
+                })
+            }
         }
     });
 
+    var app2 = new Vue({
+        el: "#app-2-1",
+        methods: {
+            myComment: function () {
+                $.post("http://localhost:8080/collect/SelectUserCollect.do", {"uid": userId}, function (data1) {
+                    app2_1.todos = data1.data;
+                    app3_1.ok = false;
+                    app2_1.ok = true;
+                    app1_1.ok = false;
+                    app3_1_2.ok = false;
+                    app11.ok = false;
+
+                });
+            }
+        }
+    });
+    var app2_1 = new Vue({
+        el: "#app-2-2",
+        data: {
+            ok: false,
+            todos: {}
+        },
+        methods: {
+            delCollect: function (uid, cid) {
+                $.post("http://localhost:8080/collect/delUserCollect.do", {"uid": uid, "cid": cid}, function (data2) {
+                    if (data2.data = "OK") {
+                        alert("删除成功");
+                        $.post("http://localhost:8080/collect/SelectUserCollect.do", {"uid": userId}, function (data1) {
+                            app2_1.todos = data1.data;
+                            app2_1.ok = true;
+                            app1_1.ok = false;
+                            app3_1.ok = false;
+                            app3_1_2.ok = false;
+                            app11.ok = false;
+
+                        });
+                    } else
+                    {
+                        alert("失败")
+                    }
+                })
+            }
+        }
+    });
+
+    var app3 = new Vue({
+        el: "#app-3-1",
+        methods: {
+            myMassage: function () {
+                $.post("http://localhost:8080/user/userMassage.do", null, function (data1) {
+                    app3_1.todos = data1.data;
+                    app3_1.ok = true;
+                    app2_1.ok = false;
+                    app1_1.ok = false;
+                    app3_1_2.ok = false;
+                    app11.ok = false;
+
+                });
+            },
+            mySafety: function () {
+                app3_1_2.ok = true;
+                app3_1.ok = false;
+                app2_1.ok = false;
+                app1_1.ok = false;
+                app11.ok = false;
+
+            }
+        }
+    });
+    var app3_1 = new Vue({
+        el: "#app-3-2-1",
+        data: {
+            ok: false,
+            todos: {}
+        }
+    });
+    var app3_1_2 = new Vue({
+        el: "#app-3-2-2",
+        data: {
+            ok: false,
+            todos: {}
+        },
+        methods: {
+            // updatePassword: function () {
+            //     $.post = ("http://localhost:8080/user/updateUserPassword.do", null, function () {
+            //         app11.ok = false;
+            //         app3_1_2.ok = true;
+            //         app3_1.ok = false;
+            //         app2_1.ok = false;
+            //         app1_1.ok = false;
+            //     })
+            // },
+            tiaozhuan: function () {
+                app11.ok = true;
+                app3_1_2.ok = false;
+                app3_1.ok = false;
+                app2_1.ok = false;
+                app1_1.ok = false;
+            }
+        }
+    });
+    function updatePassword() {
+
+        var old = $("#oldPassword").val();
+        var newPsd = $("#newPassword").val();
+        $.post("http://localhost:8080/user/updateUserPassword.do", {"password": newPsd}, function () {
+            app11.ok = false;
+            app3_1_2.ok = true;
+            app3_1.ok = false;
+            app2_1.ok = false;
+            app1_1.ok = false;
+        })
+    }
+
+    var app11 = new Vue({
+        el: "#app-11",
+        data: {
+            ok: false,
+            todos: ''
+        }
+    });
+
+    function jiaoyan() {
+        var mm = $("#oldPassword").val();
+        if (mm == pass) {
+            $("#tishi").text("原密码正确").css("color","green");
+
+        } else {
+            $("#tishi").text("原密码错误").css("color","red");
+        }
+    };
+
+    $("#newPassword2").blur(function(){
+        var pass01= $("#newPassword").val();
+        var pass02= $("#newPassword2").val();
+        if(null==pass01 || ""==pass01 || null==pass02 || ""==pass02){
+            $("#passMsg").text("密码不能为空").css("color","red");
+        }else{
+            if(pass01!=pass02){
+                $("#passMsg").text("两次密码输入不一致，请重新输入").css("color","red");
+            }else{
+                $("#passMsg").text("");
+            }
+        }
+    });
 </script>
 </body>
 </html>

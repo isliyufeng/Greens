@@ -2,6 +2,8 @@ package com.cxk.cai.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cxk.cai.entity.Collect;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -23,8 +25,8 @@ public interface CollectMapper extends BaseMapper<Collect> {
      * @param collect
      * @return
      */
-    @Select("insert into cai.collect(uid,cid) values(#{uid},#{cid});")
-    List<Collect> userCollect(Collect collect);
+    @Insert("insert into cai.collect(uid,cid) values(#{uid},#{cid});")
+    int userCollect(Collect collect);
 
     /**
      * 查询用户是否收藏过
@@ -39,6 +41,6 @@ public interface CollectMapper extends BaseMapper<Collect> {
      * @param collect
      * @return
      */
-    @Select("delete from cai.collect where uid = #{uid} and cid = #{cid}")
-    Object delUserCollect(Collect collect);
+    @Delete("delete from cai.collect where uid = #{uid} and cid = #{cid}")
+    int delUserCollect(Collect collect);
 }
